@@ -43,6 +43,17 @@
       "last 1 safari version"
     ]
   },
+  "husky": {
+  "hooks": {
+    "pre-commit": "npx lint-staged"
+  }
+},
+"lint-staged": {
+  "**/*.{js,ts,tsx}": [
+    "eslint --fix",
+    "prettier --write"
+  ]
+},
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.17",
     "@typescript-eslint/eslint-plugin": "^8.29.0",
