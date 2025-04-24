@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { GetMessages } from '../components/GetMessages'
+import { GetMessages } from '../components/message/GetMessages'
 
 export const SelectedRoom = () => {
   const params = useParams()
