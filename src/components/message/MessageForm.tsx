@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import SendIcon from '../../assets/icons/send.svg'
 import { MockWebSocket } from '../../api/MockWebSocket'
+import userStore from '../../store/userStore'
 
 interface Props {
   setMessageArr: React.Dispatch<
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export const MessageForm: React.FC<Props> = ({ setMessageArr }) => {
+  const { user } = userStore()
   const [input, setInput] = React.useState('')
   const socketRef = useRef<MockWebSocket | null>(null)
 
@@ -50,7 +52,7 @@ export const MessageForm: React.FC<Props> = ({ setMessageArr }) => {
     const myMessage = {
       id: Date.now(),
       userId: 1,
-      name: 'Misha',
+      name: user?.name || 'guest',
       sentAt: new Date().toISOString(),
       message: input,
     }

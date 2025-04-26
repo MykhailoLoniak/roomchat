@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import FormSignUp from '../components/FormSignUp'
 import { Link } from 'react-router-dom'
 

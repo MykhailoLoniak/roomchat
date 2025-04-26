@@ -13,17 +13,17 @@ export class MockWebSocket {
     }, 100)
   }
 
-  send(message) {
-    console.log('📤 Надіслано:', message)
+  send(data) {
+    const parsedData = JSON.parse(data)
 
-    const data = JSON.parse(message)
-
-    // Імітація відповіді "бота" через 1 сек
     setTimeout(() => {
       this.onmessage?.({
         data: JSON.stringify({
-          user: 'MockBot',
-          text: `Привіт, ${data.user}! Я почув: "${data.text}"`,
+          id: Date.now(),
+          userId: 99,
+          name: 'MockBot',
+          message: `Привіт, ${parsedData.name}! Я почув: "${parsedData.message}"`,
+          sentAt: new Date().toISOString(),
         }),
       })
     }, 1000)

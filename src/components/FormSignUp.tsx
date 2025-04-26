@@ -5,6 +5,7 @@ import Modal from './Modal'
 import avatars from '../assets/ava/avatars'
 import useAuthStore from '../store/userStore'
 import { UserType } from '../types/UserType'
+import { useNavigate } from 'react-router-dom'
 
 type FormData = {
   nickName: string
@@ -15,6 +16,7 @@ type FormData = {
 }
 
 export default function FormSignUp() {
+  const navigate = useNavigate()
   const { login } = useAuthStore()
   const { isOpen, openModal, closeModal } = useModal()
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null)
@@ -57,6 +59,7 @@ export default function FormSignUp() {
     setValue('nickName', '')
     setValue('password', '')
     setValue('confirmPassword', '')
+    navigate('/')
   }
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -152,11 +155,11 @@ export default function FormSignUp() {
               onClick={openModal}
               className="text-[16px] text-[#4d5dfb]"
             >
-              Select profile photo
+              Select profile photo <br />
+              <span className="text-[12px] text-[#888ca4]">
+                It will be visible to all users
+              </span>
             </button>
-            <span className="text-[12px] text-[#888ca4]">
-              It will be visible to all users
-            </span>
 
             {errors.avatar && (
               <p style={{ color: 'red' }}>{errors.avatar.message}</p>

@@ -21,11 +21,10 @@ export const Header = () => {
           <img className="mt-[1px]" src={Logo} alt="Logo" />
         </Link>
         <div>
-          <span className={styles.roomTitle}>
+          <>
             {roomTitle ? (
               <>
-                <span>${roomTitle}</span>
-                <br />
+                <span className={styles.roomTitle}>${roomTitle}</span> <br />
                 <span className={styles.roomInfo}>
                   50 participants / 3 online
                 </span>
@@ -33,7 +32,7 @@ export const Header = () => {
             ) : (
               ''
             )}
-          </span>
+          </>
         </div>
       </div>
 

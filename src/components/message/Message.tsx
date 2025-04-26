@@ -40,9 +40,9 @@ export const Message: React.FC<Props> = ({ message }) => {
     <div className={styles.container}>
       <div className="flex">
         <div className="bg-green-500 rounded-full w-6 h-6 flex items-center justify-center">
-          {message.name.slice(0, 1)}
+          .
         </div>
-        <span>{message.name.slice(1)}</span>
+        <span>{message.name}</span>
       </div>
       <div style={{ backgroundColor: '#e4d6ff' }} className={styles.messageBox}>
         <span>{message.message}</span>

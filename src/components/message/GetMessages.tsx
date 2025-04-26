@@ -5,6 +5,9 @@ import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import { MessageForm } from '../message/MessageForm'
 
+// Додаємо перевірку на існування локалі
+TimeAgo.addLocale(en)
+
 const messages = Array.from({ length: 50 }, (_, index) => ({
   id: index + 1,
   userId: (index % 5) + 1,
@@ -38,13 +41,12 @@ const isOlderThanThreeDays = (date: Date) => {
 }
 
 export const GetMessages = () => {
-  TimeAgo.addLocale(en)
   const timeAgo = new TimeAgo('en-US')
   const listRef = useRef<HTMLDivElement>(null)
-  const [messageArr, setMessageArr] = useState(messages)
+  const [messageArr, setMessageArr] = useState<MessageType[]>(messages)
 
   const groupedMessages = groupMessagesByDate(
-    messageArr.sort(
+    [...messageArr].sort(
       (a, b) => new Date(a.sentAt).getTime() - new Date(b.sentAt).getTime()
     )
   )
@@ -56,33 +58,34 @@ export const GetMessages = () => {
       }
     }, 0)
 
+    console.log(messageArr)
+
     return () => clearTimeout(timer)
-  }, [])
+  }, [messageArr])
 
   return (
     <div
       ref={listRef}
-      className="w-full element  mb-[60px]"
-      style={{ maxHeight: 'calc(100vh - 160px) ', overflowY: 'auto' }}
+      className="w-full element mb-[60px]"
+      style={{ maxHeight: 'calc(100vh - 160px)', overflowY: 'auto' }}
     >
       {Object.entries(groupedMessages).map(([date, messages]) => {
-        const dateObject = new Date(messages[0].sentAt)
+        const dateObject = new Date(messages[0]?.sentAt || Date.now())
         const formattedDate = isOlderThanThreeDays(dateObject)
           ? dateObject.toLocaleDateString('uk-UA')
           : timeAgo.format(dateObject)
 
         return (
-          <div key={date}>
+          <div key={date + '-' + (messages[0]?.id ?? Math.random())}>
             <div className="text-center text-gray-600 font-semibold my-2">
               {formattedDate}
             </div>
-            {messages.map((message: MessageType) => (
-              <Message key={message.id} message={message} />
-            ))}
+            {messages.map((message) =>
+              message ? <Message key={message.id} message={message} /> : null
+            )}
           </div>
         )
       })}
-
       <MessageForm setMessageArr={setMessageArr} />
     </div>
   )
