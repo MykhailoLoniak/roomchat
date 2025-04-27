@@ -22,7 +22,7 @@ export const Message: React.FC<Props> = ({ message }) => {
   if (message.userId === user?.id) {
     return (
       <div className={styles.container}>
-        <div className={styles.userNameContainer}>
+        <div className={styles.yourNameContainer}>
           <span>You</span>
           <UserIcon h={'h-6'} w={'h-6'} ava={user.ava} />
         </div>
@@ -39,17 +39,10 @@ export const Message: React.FC<Props> = ({ message }) => {
     )
   }
 
-  console.log('ava_____________________', avatars[5])
-  console.log('+++++++++++++++++++++++++++++++', avatars.slice(5))
-  console.log('message_______________', message)
-
   return (
     <div className={styles.container}>
-      <div className="flex ">
+      <div className={styles.userNameContainer}>
         <UserIcon h={'h-6'} w={'h-6'} ava={`${avatars[message.userId]}`} />
-        {/* <div className="bg-green-500 rounded-full w-6 h-6 flex items-center justify-center">
-          .
-        </div> */}
         <span>{message.name}</span>
       </div>
       <div style={{ backgroundColor: '#e4d6ff' }} className={styles.messageBox}>
