@@ -18,6 +18,8 @@ const messages = Array.from({ length: 50 }, (_, index) => ({
   ).toISOString(),
 }))
 
+console.log('____________________________________', messages)
+
 const groupMessagesByDate = (messages: MessageType[]) => {
   return messages.reduce(
     (acc, message) => {
@@ -57,8 +59,6 @@ export const GetMessages = () => {
         listRef.current.scrollTop = listRef.current.scrollHeight
       }
     }, 0)
-
-    console.log(messageArr)
 
     return () => clearTimeout(timer)
   }, [messageArr])

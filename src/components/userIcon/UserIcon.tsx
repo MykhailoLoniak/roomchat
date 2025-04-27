@@ -7,6 +7,8 @@ interface Props {
 }
 
 export const UserIcon: React.FC<Props> = ({ h, w, ava }) => {
+  console.log('ava-________________-------------', ava)
+
   return (
     <img src={ava} alt="user avatar" className={`rounded-full ${h} ${w}`} />
   )
